@@ -17,6 +17,7 @@ public class MainFrame {
 			}
 		});
 	}
+	public static JTextArea textArea;
 	private static Container container;
 	private static JFrame frame;
 	protected static void initializeFrame() {
@@ -26,7 +27,7 @@ public class MainFrame {
 		frame.setContentPane(container);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		System.out.println(frame.getToolkit().getScreenSize());
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		JButton print = new JButton("print");
 		print.addActionListener(new SendListener());
 		frame.add(textArea);
