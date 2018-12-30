@@ -1,6 +1,6 @@
 package client.main.graphical;
 
-import java.awt.Frame;
+import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,21 +17,32 @@ public class MainFrame {
 			}
 		});
 	}
-	public static JTextArea textArea;
+	public static JTextArea userTextArea;
+	private static JTextArea outputTextArea;
 	private static Container container;
+	private static Container textContainer;
 	private static JFrame frame;
+	private static BorderLayout layout;
 	protected static void initializeFrame() {
+		outputTextArea = new JTextArea(100, 100);
+		textContainer = new Container();
+		layout = new BorderLayout(10, 10);
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initializePanel();
 		frame.setContentPane(container);
-		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		System.out.println(frame.getToolkit().getScreenSize());
-		textArea = new JTextArea();
+		container.setLayout(layout);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		userTextArea = new JTextArea();
 		JButton print = new JButton("print");
 		print.addActionListener(new SendListener());
-		frame.add(textArea);
-		frame.add(print);
+		container.add(outputTextArea, BorderLayout.CENTER);
+		container.add(textContainer, BorderLayout.SOUTH);
+		textContainer.add(print);
+		textContainer.add(userTextArea);
+		userTextArea.setColumns(100);
+		userTextArea.setRows(10);
+		userTextArea.setLineWrap(true);
 		//frame.pack();
 		frame.setVisible(true);
 	}
@@ -42,5 +53,11 @@ public class MainFrame {
 	 */ 
 	protected static void initializePanel() { 
 		container = new Container();
+	}
+	public static void writeTextArea(String input) {
+		outputTextArea.setText(input);
+	}
+	public static String getUserText() {
+		return userTextArea.getText();
 	}
 }

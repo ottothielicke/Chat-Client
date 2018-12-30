@@ -9,7 +9,7 @@ public class SendListener implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		try {
-			System.out.print(MainFrame.textArea.getText());
+			MainFrame.writeTextArea(MainFrame.getUserText());
 		}
 		catch(NullPointerException e1) {
 		}
