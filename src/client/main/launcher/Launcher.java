@@ -129,6 +129,7 @@ public class Launcher implements ActionListener{
 				return;
 			try {
 				clientInformation.setPort(Integer.parseInt(port.getText()));
+				port.setText("Port set to " + port.getText());
 			}
 			catch(NumberFormatException exception) {
 				port.setText("Please enter a valid port");
@@ -137,6 +138,8 @@ public class Launcher implements ActionListener{
 		else if(e.getSource().equals(startP2PServer)) {
 			clientInformation.isPeerToPeer(true);
 			Main.initializeClient(clientInformation);
+			frame.dispose();
+			return;
 		}
 	}
 	private void createClientInformationObject() {
