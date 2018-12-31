@@ -7,12 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
-import client.main.Main;
 import client.main.listeners.SendListener;
 
 public class MainFrame {
 	
-	public static JTextArea userTextArea;
+	private static JTextArea userTextArea;
 	private static JTextArea outputTextArea;
 	private static Container container;
 	private static Container textContainer;
@@ -48,7 +47,7 @@ public class MainFrame {
 		userTextArea.setLineWrap(true);
 		//frame.pack();
 		frame.setVisible(true);
-		Main.notifyConnectionHandler();
+		//Main.notifyConnectionHandler();
 	}
 	/* Elements to be added on startup for content pane should
 	 * be added to this method. Any objects that are being added
@@ -64,7 +63,12 @@ public class MainFrame {
 	public static String getUserText() {
 		return userTextArea.getText();
 	}
-
+	public static String getOutputText() {
+		return outputTextArea.getText();
+	}
+	public static void setOutputText(String input) {
+		outputTextArea.setText(input);
+	}
 	public static void addText(String input) {
 		String currentText = outputTextArea.getText();
 		String newText = currentText + "\n" + input;

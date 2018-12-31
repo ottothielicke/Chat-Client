@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 
 import client.main.Main;
 import client.main.objects.NetworkInformation;
+import client.server.ConnectionHandler;
 
 public class Launcher implements ActionListener{
 	private static NetworkInformation clientInformation;
@@ -75,8 +76,10 @@ public class Launcher implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(startClient)) {
 			frame.dispose();
+			Main.setNetworkInformation(clientInformation);
+			ConnectionHandler.setNetworkInformation(clientInformation);
 			Main.initializeClient(clientInformation);
-			Thread.currentThread().interrupt();
+			return;
 		}
 		else if(e.getSource().equals(setIP)) {
 			String input = IP.getText();
@@ -104,6 +107,7 @@ public class Launcher implements ActionListener{
 			else {
 				IP.setText("IP address set to " + input);
 				clientInformation.setIP(input);
+				return;
 			}
 		}
 		else if(e.getSource().equals(setName)) {

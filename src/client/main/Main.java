@@ -14,7 +14,6 @@ public class Main {
 	}
 	public static void initializeClient(NetworkInformation networkInformationInput) {
 		MainFrame.externalInit();
-		networkInformation = networkInformationInput;
 		if(networkInformation.IsPeerToPeer()) {
 			Server.externalInit(networkInformationInput);
 		}
@@ -22,6 +21,9 @@ public class Main {
 			connectionHandlerThread = new Thread(new ConnectionHandler());
 			connectionHandlerThread.start();
 		}
+	}
+	public static void setNetworkInformation(NetworkInformation input) {
+		networkInformation = input;
 	}
 	public static NetworkInformation getNetworkInformation() {
 		return networkInformation;

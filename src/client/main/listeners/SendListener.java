@@ -12,7 +12,7 @@ public class SendListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		try {
 			if(Main.getNetworkInformation().IsPeerToPeer())
-			Server.sendText(MainFrame.userTextArea.getText());
+			Server.sendText(MainFrame.getUserText());
 		}
 		catch(NullPointerException e1) {
 		}
