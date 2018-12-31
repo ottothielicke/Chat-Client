@@ -21,20 +21,52 @@ public class Server implements Runnable{
 	}
 	private void initialize() {
 		try {
-			serverSocket = new ServerSocket(networkInformation.getPort());
-		} catch (IOException e) {
-			e.printStackTrace();
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		try {
+			MainFrame.setOutputText(MainFrame.getOutputText() + "\n Creating server socket.");
+			serverSocket = new ServerSocket(networkInformation.getPort());
+		} catch (IOException e) {
+			String stackTrace = "";
+			for(int i = 0; i < e.getStackTrace().length; i++) {
+				stackTrace += "\n" + e.getStackTrace()[i];
+			}
+			MainFrame.setOutputText(MainFrame.getOutputText() + "\n Creation failed. IOException thrown" + "\n Stack Trace \n" + stackTrace);
+			return;
+		}
+		catch(NullPointerException e) {
+			String stackTrace = "";
+			for(int i = 0; i < e.getStackTrace().length; i++) {
+				stackTrace += "\n" + e.getStackTrace()[i];
+			}
+			MainFrame.setOutputText(MainFrame.getOutputText() + "\n Creation failed. NullPointerException thrown" + "\n Stack Trace \n" + stackTrace);
+			return;
+		}
+		MainFrame.setOutputText(MainFrame.getOutputText() + "\n Socket creation successful.");
+		try {
+			MainFrame.setOutputText(MainFrame.getOutputText() + "\n Waiting for Connection...");
 			socket = serverSocket.accept();
 		} catch (IOException e) {
-			e.printStackTrace();
+			String stackTrace = "";
+			for(int i = 0; i < e.getStackTrace().length; i++) {
+				stackTrace += "\n" + e.getStackTrace()[i];
+			}
+			MainFrame.setOutputText(MainFrame.getOutputText() + "\n Creation failed. IOException thrown" + "\n Stack Trace \n" + stackTrace);
+			return;
 		}
+		MainFrame.setOutputText(MainFrame.getOutputText() + "\n User connected");
 		try {
 			SocketHandler(socket);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			String stackTrace = "";
+			for(int i = 0; i < e.getStackTrace().length; i++) {
+				stackTrace += "\n" + e.getStackTrace()[i];
+			}
+			MainFrame.setOutputText(MainFrame.getOutputText() + "\n Creation failed. IOException thrown" + "\n Stack Trace \n" + stackTrace);
+			return;
 		}
 		ioHandler();
 	}
@@ -52,32 +84,39 @@ public class Server implements Runnable{
 		}
 	}
 	private void ioHandler() {
+		try {
+			SocketHandler(socket);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		while(true) {
-			inputStreamHandler();
+			try {
+				inputStreamHandler();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			oldInputStream = inputStream;
 			try {
-				Thread.sleep(1);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	private void inputStreamHandler() {
-		if(inputStream != oldInputStream) {
-			try {
-				if(inputStream.available() > 0) {
-					byte[] input = inputStream.readAllBytes();
-					char[] charArray = new char[input.length];
-					for(int i = 0; i < input.length; i++) {
-						charArray[i] = (char)input[i];
-					}
-					String text = new String(charArray);
-					MainFrame.addText(text);
+	private void inputStreamHandler() throws IOException {
+		try {
+			String text = "";
+			if(socket.getInputStream().available() > 0) {
+				while(socket.getInputStream().available() > 0) {
+					text += (char)socket.getInputStream().read();
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MainFrame.addText(text);
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	public static void sendText(String input) {

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
@@ -17,6 +18,7 @@ public class MainFrame {
 	private static Container textContainer;
 	private static JFrame frame;
 	private static BorderLayout layout;
+	public static boolean isPeerToPeer = false;
 	public static void externalInit() {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -27,6 +29,7 @@ public class MainFrame {
 	
 	protected static void initializeFrame() {
 		outputTextArea = new JTextArea(100, 100);
+		JScrollPane scroll = new JScrollPane(outputTextArea);
 		textContainer = new Container();
 		layout = new BorderLayout(10, 10);
 		frame = new JFrame();
@@ -38,7 +41,7 @@ public class MainFrame {
 		userTextArea = new JTextArea();
 		JButton print = new JButton("print");
 		print.addActionListener(new SendListener());
-		container.add(outputTextArea, BorderLayout.CENTER);
+		container.add(scroll, BorderLayout.CENTER);
 		container.add(textContainer, BorderLayout.SOUTH);
 		textContainer.add(print);
 		textContainer.add(userTextArea);
@@ -73,5 +76,8 @@ public class MainFrame {
 		String currentText = outputTextArea.getText();
 		String newText = currentText + "\n" + input;
 		outputTextArea.setText(newText);
+	}
+	public static void setbingus(boolean input) {
+		isPeerToPeer = input;
 	}
 }

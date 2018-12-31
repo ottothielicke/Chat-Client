@@ -16,6 +16,7 @@ public class Main {
 		MainFrame.externalInit();
 		if(networkInformationInput.isPeerToPeer()) {
 			Server.externalInit(networkInformationInput);
+			MainFrame.setbingus(true);
 		}
 		else {
 			connectionHandlerThread = new Thread(new ConnectionHandler());
