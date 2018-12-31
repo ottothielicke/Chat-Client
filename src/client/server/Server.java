@@ -59,7 +59,7 @@ public class Server implements Runnable{
 		}
 		MainFrame.setOutputText(MainFrame.getOutputText() + "\n User connected");
 		try {
-			SocketHandler(socket);
+			SocketHandler();
 		} catch (IOException e) {
 			String stackTrace = "";
 			for(int i = 0; i < e.getStackTrace().length; i++) {
@@ -77,20 +77,20 @@ public class Server implements Runnable{
 	private Server(NetworkInformation input) {
 		Server.networkInformation = input;
 	}
-	private void SocketHandler(Socket socket) throws IOException {
+	private void SocketHandler() throws IOException {
 		if(socket.isConnected()) {
 			inputStream = socket.getInputStream();
 			outputStream = socket.getOutputStream();
 		}
 	}
 	private void ioHandler() {
-		try {
-			SocketHandler(socket);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		while(true) {
+			try {
+				SocketHandler();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			try {
 				inputStreamHandler();
 			} catch (IOException e1) {
@@ -108,12 +108,12 @@ public class Server implements Runnable{
 	private void inputStreamHandler() throws IOException {
 		try {
 			String text = "";
-			if(socket.getInputStream().available() > 0) {
-				while(socket.getInputStream().available() > 0) {
-					text += (char)socket.getInputStream().read();
+				if(socket.getInputStream().available() > 0) {
+					while(socket.getInputStream().available() > 0) {
+						text += (char)socket.getInputStream().read();
+					}
+					MainFrame.addText(text);
 				}
-				MainFrame.addText(text);
-			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

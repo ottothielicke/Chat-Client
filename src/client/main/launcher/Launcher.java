@@ -137,6 +137,7 @@ public class Launcher implements ActionListener{
 		}
 		else if(e.getSource().equals(startP2PServer)) {
 			clientInformation.isPeerToPeer(true);
+			Main.setNetworkInformation(clientInformation);
 			Main.initializeClient(clientInformation);
 			frame.dispose();
 			return;

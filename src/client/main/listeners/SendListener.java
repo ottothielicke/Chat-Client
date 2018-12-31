@@ -12,13 +12,9 @@ public class SendListener implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(MainFrame.isPeerToPeer) {
-			try {
 				MainFrame.addText(Main.getNetworkInformation().getUserName() + ": " + MainFrame.getUserText());
 				Server.sendText(MainFrame.getUserText());
 				MainFrame.setUserText("");
-			}
-			catch(NullPointerException e1) {
-			}
 		}
 		else {
 			MainFrame.addText(Main.getNetworkInformation().getUserName() + ": " + MainFrame.getUserText());
