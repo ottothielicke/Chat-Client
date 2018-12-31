@@ -30,7 +30,7 @@ public class MainFrame {
 		outputTextArea = new JTextArea(100, 100);
 		textContainer = new Container();
 		layout = new BorderLayout(10, 10);
-		frame = new JFrame();
+		frame = new JFrame("Chat Client");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initializePanel();
 		frame.setContentPane(container);
@@ -48,7 +48,7 @@ public class MainFrame {
 		userTextArea.setLineWrap(true);
 		//frame.pack();
 		frame.setVisible(true);
-		Main.notifyConnectionHandler();
+		//Main.notifyConnectionHandler();
 	}
 	/* Elements to be added on startup for content pane should
 	 * be added to this method. Any objects that are being added
