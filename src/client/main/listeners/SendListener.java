@@ -11,7 +11,7 @@ public class SendListener implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		try {
-			if(Main.getNetworkInformation().IsPeerToPeer())
+			if(Main.getNetworkInformation().isPeerToPeer())
 			Server.sendText(MainFrame.getUserText());
 		}
 		catch(NullPointerException e1) {

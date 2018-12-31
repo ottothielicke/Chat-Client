@@ -23,7 +23,7 @@ public class NetworkInformation {
 	public void setUsername(String input) {
 		username = input;
 	}
-	public void IsPeerToPeer(boolean value) {
+	public void isPeerToPeer(boolean value) {
 		isPeerToPeer = value;
 	}
 	public NetworkInformation() {
@@ -46,7 +46,7 @@ public class NetworkInformation {
 		this.username = username;
 		this.isPeerToPeer = isPeerToPeer;
 	}
-	public boolean IsPeerToPeer() {
+	public boolean isPeerToPeer() {
 		return isPeerToPeer;
 	}
 }

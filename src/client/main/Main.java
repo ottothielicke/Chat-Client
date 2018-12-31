@@ -14,7 +14,7 @@ public class Main {
 	}
 	public static void initializeClient(NetworkInformation networkInformationInput) {
 		MainFrame.externalInit();
-		if(networkInformation.IsPeerToPeer()) {
+		if(networkInformation.isPeerToPeer()) {
 			Server.externalInit(networkInformationInput);
 		}
 		else {
