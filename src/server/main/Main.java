@@ -1,22 +1,29 @@
 package server.main;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.net.SocketAddress;
+import java.net.Socket;
+import java.util.ArrayList;
 
 //just gonna write a test server
 public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException {
-		@SuppressWarnings("resource")
-		ServerSocket socket = new ServerSocket(666, 3, new InetAddress());
-		socket.bind(new SocketAddress());
-		while(true) {
-			socket.accept();
-			if(socket.isBound()) {
-				
-			}
-			Thread.sleep(100);
+		initServer();
+	}
+	static ArrayList<Socket> clients;
+	private static void initServer() {
+		ServerSocket mainSocket = null;
+		try {
+			mainSocket = new ServerSocket(25566);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Socket socket;
+		try {
+			socket = mainSocket.accept();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
