@@ -66,6 +66,9 @@ public class MainFrame {
 	public static String getUserText() {
 		return userTextArea.getText();
 	}
+	public static void setUserText(String input) {
+		userTextArea.setText(input);
+	}
 	public static String getOutputText() {
 		return outputTextArea.getText();
 	}

@@ -94,11 +94,13 @@ public class ConnectionHandler implements Runnable{
 	private void inputStreamHandler() throws IOException {
 		try {
 			String text = "";
-			if(socket.getInputStream().available() > 0) {
-				while(socket.getInputStream().available() > 0) {
-					text += (char)socket.getInputStream().read();
+			if(!oldInputStream.equals(inputStream)) {
+				if(socket.getInputStream().available() > 0) {
+					while(socket.getInputStream().available() > 0) {
+						text += (char)socket.getInputStream().read();
+					}
+					MainFrame.addText(text);
 				}
-				MainFrame.addText(text);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
