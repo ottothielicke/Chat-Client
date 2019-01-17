@@ -18,6 +18,8 @@ public class MainFrame {
 	private static Container textContainer;
 	private static JFrame frame;
 	private static BorderLayout layout;
+	private static JScrollPane outputTextAreaScroll;
+	private static JScrollPane userTextAreaScroll;
 	public static boolean isPeerToPeer = false;
 	public static void externalInit() {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -29,7 +31,7 @@ public class MainFrame {
 	
 	protected static void initializeFrame() {
 		outputTextArea = new JTextArea(100, 100);
-		JScrollPane scroll = new JScrollPane(outputTextArea);
+		outputTextAreaScroll = new JScrollPane(outputTextArea);
 		textContainer = new Container();
 		layout = new BorderLayout(10, 10);
 		frame = new JFrame();
@@ -39,12 +41,13 @@ public class MainFrame {
 		container.setLayout(layout);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		userTextArea = new JTextArea();
+		userTextAreaScroll = new JScrollPane(userTextArea);
 		JButton print = new JButton("print");
 		print.addActionListener(new SendListener());
-		container.add(scroll, BorderLayout.CENTER);
+		container.add(outputTextAreaScroll, BorderLayout.CENTER);
 		container.add(textContainer, BorderLayout.SOUTH);
 		textContainer.add(print);
-		textContainer.add(userTextArea);
+		textContainer.add(userTextAreaScroll);
 		userTextArea.setColumns(100);
 		userTextArea.setRows(10);
 		userTextArea.setLineWrap(true);
